@@ -1,5 +1,7 @@
 package io.d2a.swag.components;
 
+import io.d2a.swag.components.placeholder.Placeholder;
+
 import javax.swing.*;
 
 public class PlaceholderTextFieldTest {
@@ -8,9 +10,9 @@ public class PlaceholderTextFieldTest {
         final JFrame frame = new JFrame();
         final JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new PlaceholderTextField("User"));
-        panel.add(new PlaceholderTextField("Password"));
-        panel.add(new PlaceholderTextField("E-Mail"));
+        panel.add(Placeholder.extend("User", new JTextField()));
+        panel.add(Placeholder.extend("Password", new JPasswordField()));
+        panel.add(Placeholder.extend("E-Mail", new JTextArea()));
         frame.add(panel);
         frame.setSize(720, 480);
         frame.setVisible(true);
