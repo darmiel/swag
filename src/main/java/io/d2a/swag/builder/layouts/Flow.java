@@ -1,4 +1,4 @@
-package io.d2a.swag.builder.layout;
+package io.d2a.swag.builder.layouts;
 
 import io.d2a.swag.builder.ComponentBuilder;
 
