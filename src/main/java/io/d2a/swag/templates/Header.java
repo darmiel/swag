@@ -22,11 +22,9 @@ public record Header(int level, String heading) implements ComponentBuilder<JLab
     @Override
     public JLabel build() {
         final JLabel label = new JLabel(this.heading());
-        System.out.println(label.getFont());
         label.setFont(label.getFont()
-                .deriveFont(label.getFont().getStyle() | Font.BOLD)
-                .deriveFont(LEVELS[Math.min(LEVELS.length - 1, this.level() - 1)]));
-        System.out.println(label.getFont());
+                .deriveFont(label.getFont().getStyle() | Font.BOLD) // make bold
+                .deriveFont(LEVELS[Math.min(LEVELS.length - 1, this.level() - 1)])); // set size
         return label;
     }
 
