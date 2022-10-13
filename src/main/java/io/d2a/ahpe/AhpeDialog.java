@@ -7,16 +7,6 @@ import javax.swing.*;
  */
 public class AhpeDialog {
 
-    private static void openWithType(final String message, final String title, final int type) {
-        JOptionPane.showMessageDialog(null, message, title, type);
-    }
-
-    private static void openWithType(final String message, final int type) {
-        openWithType(message, "AHPE", type);
-    }
-
-    ///
-
     public static void info(final String message) {
         openWithType(message, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -39,6 +29,16 @@ public class AhpeDialog {
 
     public static void error(final String title, final String message) {
         openWithType(message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    ///
+
+    private static void openWithType(final String message, final String title, final int type) {
+        JOptionPane.showMessageDialog(null, message, title, type);
+    }
+
+    private static void openWithType(final String message, final int type) {
+        openWithType(message, "AHPE", type);
     }
 
 }
