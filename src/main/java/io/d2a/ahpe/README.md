@@ -77,9 +77,19 @@ class Person {
 }
 ```
 
-2. Daten auslesen
+2. Datei und Separator (`,`) übergeben
 ```java
 final List<Person> persons = AhpeFile.parseSeparatedFile(file, ",", Person.class);
+```
+
+3. Dateien werden automatisch mit Typen geparsed
+```java
+for (final Person person : persons) {
+    System.out.println(person);
+}
+// Person[name=peter, age=22, country=deutschland]
+// Person[name=max, age=24, country=schweiz]
+// Person[name=martin, age=26, country=niederlande]
 ```
 
 ## Misc
