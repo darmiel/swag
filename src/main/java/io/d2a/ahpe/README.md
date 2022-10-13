@@ -66,6 +66,20 @@ this.add(Grid.builder()
         .build());
 ```
 
+Kann auch für Eingabfelder verwendet werden:
+
+![](./assets/swing-grid-2.png)
+
+```java
+this.add(Grid.builder()
+        .with("Name", Placeholder.extend("Name", new JTextField()))
+        .with("Alter", Placeholder.extend("Alter", new JTextField()))
+        .with("Adresse", Placeholder.extend("Adresse", new JTextField()))
+        .with("Geschlecht", Placeholder.extend("Geschlecht", new JTextField()))
+        .build());
+```
+
+
 #### Buttons and Layouts
 
 ```java
