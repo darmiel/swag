@@ -54,4 +54,9 @@ public abstract class TextFieldWrapper<T extends JTextComponent> implements Comp
         return this.object.getText();
     }
 
+    public TextFieldWrapper<T> text(final String newText) {
+        this.object.setText(newText);
+        return this;
+    }
+
 }
