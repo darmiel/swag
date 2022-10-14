@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class ApheThread {
+public class AhpeThread {
 
     /**
      * Runs a runnable after a specified amount of time.

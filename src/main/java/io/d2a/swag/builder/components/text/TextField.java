@@ -14,11 +14,11 @@ public class TextField extends TextFieldWrapper<JTextField> {
         super(new JTextField(text));
     }
 
-    public TextField key(final int keyCode, final Runnable runnable) {
+    public TextField key(final Integer keyCode, final Runnable runnable) {
         this.getObject().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == keyCode) {
+                if (keyCode == null || keyCode == e.getKeyCode()) {
                     runnable.run();
                 }
             }
@@ -28,6 +28,11 @@ public class TextField extends TextFieldWrapper<JTextField> {
 
     public TextField enter(final Runnable runnable) {
         return this.key(KeyEvent.VK_ENTER, runnable);
+    }
+
+    public TextField editable(final boolean editable) {
+        this.getObject().setEditable(false);
+        return this;
     }
 
     @Override
