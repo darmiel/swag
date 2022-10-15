@@ -39,10 +39,11 @@ public class AhpeThread {
      * If you return <code>true</code> from the function, the thread will stop.
      * If you return <code>false</code> the thread continues.
      *
-     * @param intervalInMilliseconds Interval
-     * @param onTick                 Function which is executed every tick
+     * @param duration Duration of time to wait
+     * @param unit     Unit of time to wait
+     * @param onTick   Function which is executed every tick
      */
-    public static Thread interval(final long intervalInMilliseconds, final Function<Long, Boolean> onTick) {
+    public static Thread every(final long duration, final TimeUnit unit, final Function<Long, Boolean> onTick) {
         final Thread thread = new Thread(() -> {
             long tick = 0;
             while (true) {
@@ -50,7 +51,7 @@ public class AhpeThread {
                     return;
                 }
                 Ahpe.yolo(() -> {
-                    Thread.sleep(intervalInMilliseconds);
+                    Thread.sleep(TimeUnit.MILLISECONDS.convert(duration, unit));
                     return null;
                 });
             }
@@ -63,11 +64,12 @@ public class AhpeThread {
      * Executes the {onTick} function every {intervalInMilliseconds} ms.
      * This method has no (inbuilt) way to stop the thread.
      *
-     * @param interval Interval
+     * @param duration Duration of time to wait
+     * @param unit     Unit of time to wait
      * @param onTick   Runnable which is executed every tick
      */
-    public static Thread interval(final long interval, final Runnable onTick) {
-        return AhpeThread.interval(interval, (tick) -> {
+    public static Thread every(final long duration, final TimeUnit unit, final Runnable onTick) {
+        return AhpeThread.every(duration, unit, (tick) -> {
             onTick.run();
             return false;
         });
@@ -80,7 +82,7 @@ public class AhpeThread {
      * @return Thread
      */
     public static Thread everySecond(final Runnable onTick) {
-        return AhpeThread.interval(1000, onTick);
+        return AhpeThread.every(1, TimeUnit.SECONDS, onTick);
     }
 
     /**
@@ -91,7 +93,7 @@ public class AhpeThread {
      * @return Thread
      */
     public static Thread everySecond(final Function<Long, Boolean> onTick) {
-        return AhpeThread.interval(1000, onTick);
+        return AhpeThread.every(1, TimeUnit.SECONDS, onTick);
     }
 
     /**
@@ -101,7 +103,7 @@ public class AhpeThread {
      * @return Thread
      */
     public static Thread everyMinute(final Runnable onTick) {
-        return AhpeThread.interval(60_000, onTick);
+        return AhpeThread.every(1, TimeUnit.MINUTES, onTick);
     }
 
     /**
@@ -112,7 +114,7 @@ public class AhpeThread {
      * @return Thread
      */
     public static Thread everyMinute(final Function<Long, Boolean> onTick) {
-        return AhpeThread.interval(60_000, onTick);
+        return AhpeThread.every(1, TimeUnit.MINUTES, onTick);
     }
 
     ///
@@ -134,7 +136,7 @@ public class AhpeThread {
             final Runnable onDone
     ) {
         final AtomicLong current = new AtomicLong();
-        AhpeThread.interval(1000, tick -> {
+        AhpeThread.every(1, TimeUnit.SECONDS, tick -> {
             final long remaining = seconds - current.getAndIncrement();
             if (remaining <= 0) {
                 onDone.run();
