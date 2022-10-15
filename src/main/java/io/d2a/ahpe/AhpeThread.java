@@ -1,7 +1,5 @@
 package io.d2a.ahpe;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -76,15 +74,11 @@ public class AhpeThread {
 
     ///
 
-    public static void intervalForSeconds(
+    public static void intervalForSecondsWithCondition(
             final long durationInSeconds,
-            final Consumer<Long> onRemaining,
+            final Function<Long, Boolean> onRemaining,
             final Runnable onDone
     ) {
-
-        List<String> list = Arrays.asList("Daniel", "Opi");
-        String name = AhpeMisc.randomArray(list.toArray(new String[0]));
-
         final AtomicLong current = new AtomicLong();
         AhpeThread.interval(1000, tick -> {
             final long remaining = durationInSeconds - current.getAndIncrement();
@@ -92,9 +86,21 @@ public class AhpeThread {
                 onDone.run();
                 return true;
             }
-            onRemaining.accept(remaining);
-            return false;
+            return onRemaining.apply(remaining);
         });
     }
+
+    public static void intervalForSeconds(
+            final long durationInSeconds,
+            final Consumer<Long> onRemaining,
+            final Runnable onDone
+    ) {
+        AhpeThread.intervalForSecondsWithCondition(durationInSeconds,
+                remaining -> {
+                    onRemaining.accept(remaining);
+                    return false;
+                }, onDone);
+    }
+
 
 }

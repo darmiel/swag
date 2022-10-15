@@ -31,6 +31,14 @@ public class Flow extends JPanel {
         return center(5, 5);
     }
 
+    public static Flow center(final Component component) {
+        return center().with(component);
+    }
+
+    public static Flow center(final ComponentBuilder<?> component) {
+        return center(component.build());
+    }
+
     public static Flow center(final int hgap, final int vgap) {
         return new Flow(FlowLayout.CENTER, hgap, vgap);
     }
