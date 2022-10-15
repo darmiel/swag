@@ -2,6 +2,7 @@ package io.d2a.ahpe;
 
 import java.awt.*;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -95,6 +96,13 @@ public class AhpeMisc {
             return null;
         }
         return array[random.nextInt(array.length)];
+    }
+
+    public static <T> T randomList(final List<T> list) {
+        if (list.size() == 0) {
+            return null;
+        }
+        return list.get(random.nextInt(list.size()));
     }
 
     /**

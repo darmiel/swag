@@ -3,6 +3,7 @@ package io.d2a.swag.builder.components.text;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.function.Consumer;
 
 public class TextField extends TextFieldWrapper<JTextField> {
 
@@ -28,6 +29,11 @@ public class TextField extends TextFieldWrapper<JTextField> {
 
     public TextField enter(final Runnable runnable) {
         return this.key(KeyEvent.VK_ENTER, runnable);
+    }
+
+    public TextField raw(final Consumer<JTextField> ta) {
+        ta.accept(this.getObject());
+        return this;
     }
 
     public TextField editable(final boolean editable) {

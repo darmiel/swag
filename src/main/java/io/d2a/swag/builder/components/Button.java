@@ -4,6 +4,7 @@ import io.d2a.swag.builder.ComponentBuilder;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 public class Button implements ComponentBuilder<JButton> {
 
@@ -44,6 +45,11 @@ public class Button implements ComponentBuilder<JButton> {
 
     public Button disable() {
         this.button.setEnabled(false);
+        return this;
+    }
+
+    public Button raw(final Consumer<JButton> button) {
+        button.accept(this.button);
         return this;
     }
 

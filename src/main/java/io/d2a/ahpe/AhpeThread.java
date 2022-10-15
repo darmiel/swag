@@ -1,8 +1,13 @@
 package io.d2a.ahpe;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class AhpeThread {
 
@@ -27,6 +32,69 @@ public class AhpeThread {
                 runnable.run();
             }
         }, TimeUnit.MILLISECONDS.convert(duration, unit));
+    }
+
+    ///
+
+    public static void interval(final long interval, final Function<Long, Boolean> onTick) {
+        new Thread(() -> {
+            long tick = 0;
+            while (true) {
+                if (onTick.apply(++tick)) {
+                    return;
+                }
+                Ahpe.yolo(() -> {
+                    Thread.sleep(interval);
+                    return null;
+                });
+            }
+        }).start();
+    }
+
+    public static void interval(final long interval, final Runnable onTick) {
+        AhpeThread.interval(interval, (tick) -> {
+            onTick.run();
+            return false;
+        });
+    }
+
+    public static void everySecond(final Runnable onTick) {
+        AhpeThread.interval(1000, onTick);
+    }
+
+    public static void everySecond(final Function<Long, Boolean> onTick) {
+        AhpeThread.interval(1000, onTick);
+    }
+
+    public static void everyMinute(final Runnable onTick) {
+        AhpeThread.interval(60_000, onTick);
+    }
+
+    public static void everyMinute(final Function<Long, Boolean> onTick) {
+        AhpeThread.interval(60_000, onTick);
+    }
+
+    ///
+
+    public static void intervalForSeconds(
+            final long durationInSeconds,
+            final Consumer<Long> onRemaining,
+            final Runnable onDone
+    ) {
+
+        List<String> list = Arrays.asList("Daniel", "Opi");
+        String name = AhpeMisc.randomArray(list.toArray(new String[0]));
+
+        final AtomicLong current = new AtomicLong();
+        AhpeThread.interval(1000, tick -> {
+            final long remaining = durationInSeconds - current.getAndIncrement();
+            if (remaining <= 0) {
+                onDone.run();
+                return true;
+            }
+            onRemaining.accept(remaining);
+            return false;
+        });
     }
 
 }
