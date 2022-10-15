@@ -1,15 +1,10 @@
 package io.d2a.ahpe;
 
-import java.awt.*;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class AhpeMisc {
-
-    private static final Random random = new Random();
 
     /**
      * Checks if b is between a and b (inclusive)
@@ -53,58 +48,6 @@ public class AhpeMisc {
         }
         return builder.toString();
     }
-
-    /**
-     * Generates a random color
-     *
-     * @param max value value to choose from (r, g, b)
-     * @return random color
-     */
-    public static Color randomColor(final int max) {
-        return new Color(random.nextInt(max + 1), random.nextInt(max + 1), random.nextInt(max + 1));
-    }
-
-    /**
-     * Generates a random color
-     *
-     * @return random color
-     */
-    public static Color randomColor() {
-        return randomColor(200);
-    }
-
-    /**
-     * Generates a random number between {between} (min) and {and} (max)
-     *
-     * @param between min
-     * @param and     max
-     * @return random number between min and max
-     */
-    public static int randomNumber(final int between, final int and) {
-        return random.nextInt(and + 1 - between) + between;
-    }
-
-    /**
-     * Returns a random entry from the given array
-     *
-     * @param array array to choose an entry from
-     * @param <T>   type of array
-     * @return random entry from array
-     */
-    public static <T> T randomArray(final T[] array) {
-        if (array.length == 0) {
-            return null;
-        }
-        return array[random.nextInt(array.length)];
-    }
-
-    public static <T> T randomList(final List<T> list) {
-        if (list.size() == 0) {
-            return null;
-        }
-        return list.get(random.nextInt(list.size()));
-    }
-
     /**
      * Returns the min value from multiple values
      * @param comparator comparator for values
@@ -178,10 +121,6 @@ public class AhpeMisc {
      */
     public static double max(final double ... values) {
         return DoubleStream.of(values).max().orElse(0.0);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(max(Comparator.comparingInt(a -> a), 1, 2, 99, 3, 4, 5, 6));
     }
 
 }

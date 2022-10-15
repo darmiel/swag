@@ -38,6 +38,10 @@ public class Ahpe {
             return orElse;
         }
 
+        public T nil() {
+            return this.result;
+        }
+
     }
 
     public interface YoloAction<T> {

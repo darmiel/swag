@@ -34,54 +34,108 @@ public class AhpeThread {
 
     ///
 
-    public static void interval(final long interval, final Function<Long, Boolean> onTick) {
-        new Thread(() -> {
+    /**
+     * Executes the {onTick} function every {intervalInMilliseconds} ms.
+     * If you return <code>true</code> from the function, the thread will stop.
+     * If you return <code>false</code> the thread continues.
+     *
+     * @param intervalInMilliseconds Interval
+     * @param onTick                 Function which is executed every tick
+     */
+    public static Thread interval(final long intervalInMilliseconds, final Function<Long, Boolean> onTick) {
+        final Thread thread = new Thread(() -> {
             long tick = 0;
             while (true) {
                 if (onTick.apply(++tick)) {
                     return;
                 }
                 Ahpe.yolo(() -> {
-                    Thread.sleep(interval);
+                    Thread.sleep(intervalInMilliseconds);
                     return null;
                 });
             }
-        }).start();
+        });
+        thread.start();
+        return thread;
     }
 
-    public static void interval(final long interval, final Runnable onTick) {
-        AhpeThread.interval(interval, (tick) -> {
+    /**
+     * Executes the {onTick} function every {intervalInMilliseconds} ms.
+     * This method has no (inbuilt) way to stop the thread.
+     *
+     * @param interval Interval
+     * @param onTick   Runnable which is executed every tick
+     */
+    public static Thread interval(final long interval, final Runnable onTick) {
+        return AhpeThread.interval(interval, (tick) -> {
             onTick.run();
             return false;
         });
     }
 
-    public static void everySecond(final Runnable onTick) {
-        AhpeThread.interval(1000, onTick);
+    /**
+     * Executes {onTick} every second with no way to stop.
+     *
+     * @param onTick Runnable to run every second
+     * @return Thread
+     */
+    public static Thread everySecond(final Runnable onTick) {
+        return AhpeThread.interval(1000, onTick);
     }
 
-    public static void everySecond(final Function<Long, Boolean> onTick) {
-        AhpeThread.interval(1000, onTick);
+    /**
+     * Executes {onTick} every second. If you return <code>true</code> from {onTick}
+     * the thread will stop. If you return <code>false</code> the thread continues.
+     *
+     * @param onTick Function to run every second
+     * @return Thread
+     */
+    public static Thread everySecond(final Function<Long, Boolean> onTick) {
+        return AhpeThread.interval(1000, onTick);
     }
 
-    public static void everyMinute(final Runnable onTick) {
-        AhpeThread.interval(60_000, onTick);
+    /**
+     * Executes {onTick} every minute with no way to stop.
+     *
+     * @param onTick Runnable to run every minute
+     * @return Thread
+     */
+    public static Thread everyMinute(final Runnable onTick) {
+        return AhpeThread.interval(60_000, onTick);
     }
 
-    public static void everyMinute(final Function<Long, Boolean> onTick) {
-        AhpeThread.interval(60_000, onTick);
+    /**
+     * Executes {onTick} every minute. If you return <code>true</code> from {onTick}
+     * the thread will stop. If you return <code>false</code> the thread continues.
+     *
+     * @param onTick Function to run every minute
+     * @return Thread
+     */
+    public static Thread everyMinute(final Function<Long, Boolean> onTick) {
+        return AhpeThread.interval(60_000, onTick);
     }
 
     ///
 
-    public static void intervalForSecondsWithCondition(
-            final long durationInSeconds,
+    /**
+     * Starts a countdown for {seconds} seconds.
+     * Every second {onRemaining} receives the seconds remaining in the countdown.
+     * If you return <code>true</code> from that function, the thread ends and the countdown stops.
+     * If you return <code>false</code> the thread and the countdown continues.
+     * When the countdown completes, {onDone} is executed..
+     *
+     * @param seconds     Seconds to run the countdown
+     * @param onRemaining Function which is executed every second while the countdown is active
+     * @param onDone      Runnable which is executed after the countdown ends
+     */
+    public static void countdownWithCondition(
+            final long seconds,
             final Function<Long, Boolean> onRemaining,
             final Runnable onDone
     ) {
         final AtomicLong current = new AtomicLong();
         AhpeThread.interval(1000, tick -> {
-            final long remaining = durationInSeconds - current.getAndIncrement();
+            final long remaining = seconds - current.getAndIncrement();
             if (remaining <= 0) {
                 onDone.run();
                 return true;
@@ -90,17 +144,67 @@ public class AhpeThread {
         });
     }
 
-    public static void intervalForSeconds(
-            final long durationInSeconds,
+    /**
+     * Starts a countdown for {seconds} seconds.
+     * Every second {onRemaining} receives the seconds remaining in the countdown.
+     * When the countdown completes, {onDone} is executed..
+     *
+     * @param seconds     Seconds to run the countdown
+     * @param onRemaining Function which is executed every second while the countdown is active
+     * @param onDone      Runnable which is executed after the countdown ends
+     */
+    public static void countdown(
+            final long seconds,
             final Consumer<Long> onRemaining,
             final Runnable onDone
     ) {
-        AhpeThread.intervalForSecondsWithCondition(durationInSeconds,
+        AhpeThread.countdownWithCondition(seconds,
                 remaining -> {
                     onRemaining.accept(remaining);
                     return false;
                 }, onDone);
     }
 
+    /**
+     * Counts for {seconds} seconds.
+     * Every second {onTick} receives the seconds the counter already counted.
+     * If you return <code>true</code> from that function, the thread ends and the counter stops.
+     * If you return <code>false</code> the thread and the counter continues.
+     * When the counter completes, {onDone} is executed..
+     *
+     * @param seconds Seconds to count
+     * @param onTick  Function which is executed every second while the counter is active
+     * @param onDone  Runnable which is executed after the counter completes
+     */
+    public static void countWithCondition(
+            final long seconds,
+            final Function<Long, Boolean> onTick,
+            final Runnable onDone
+    ) {
+        AhpeThread.countdownWithCondition(seconds,
+                remaining -> onTick.apply(seconds - remaining),
+                onDone
+        );
+    }
+
+    /**
+     * Counts for {seconds} seconds.
+     * Every second {onTick} receives the seconds the counter already counted..
+     * When the counter completes, {onDone} is executed..
+     *
+     * @param seconds Seconds to count
+     * @param onTick  Runnable which is executed every second while the counter is active
+     * @param onDone  Runnable which is executed after the counter completes
+     */
+    public static void count(
+            final long seconds,
+            final Consumer<Long> onTick,
+            final Runnable onDone
+    ) {
+        AhpeThread.countdown(seconds,
+                remaining -> onTick.accept(seconds - remaining),
+                onDone
+        );
+    }
 
 }

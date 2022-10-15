@@ -20,6 +20,18 @@ public class AhpeFile {
     ));
 
     /**
+     * Write the text to the file.
+     * All other contents will be truncated.
+     *
+     * @param file The file to write to
+     * @param text The text to write
+     */
+    public static void write(final File file, final String text) {
+        Ahpe.yolo(() -> Files.writeString(file.toPath(), text,
+                StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE));
+    }
+
+    /**
      * Appends the text to the file.
      * If the file doesn't already exist, the file is newly created.
      *
@@ -27,7 +39,8 @@ public class AhpeFile {
      * @param text The text to write
      */
     public static void append(final File file, final String text) {
-        Ahpe.yolo(() -> Files.writeString(file.toPath(), text, StandardOpenOption.APPEND, StandardOpenOption.CREATE));
+        Ahpe.yolo(() -> Files.writeString(file.toPath(), text,
+                StandardOpenOption.WRITE, StandardOpenOption.APPEND, StandardOpenOption.CREATE));
     }
 
     /**
@@ -38,7 +51,7 @@ public class AhpeFile {
      * @param text The text to write
      */
     public static void appendLine(final File file, final String text) {
-        Ahpe.yolo(() -> Files.writeString(file.toPath(), text + "\n", StandardOpenOption.APPEND, StandardOpenOption.CREATE));
+        AhpeFile.append(file, text + "\n");
     }
 
     /**
@@ -67,7 +80,20 @@ public class AhpeFile {
         while (lines.size() > maxHowMany) {
             lines.remove(0);
         }
-        Ahpe.yolo(() -> Files.write(file.toPath(), lines, StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING));
+        Ahpe.yolo(() -> Files.write(file.toPath(), lines,
+                StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE));
+    }
+
+    ///
+
+    /**
+     * Reads all contents of the file in a single string
+     *
+     * @param file The file to read from
+     * @return File contents
+     */
+    public static String read(final File file) {
+        return Ahpe.yolo(() -> Files.readString(file.toPath())).nil();
     }
 
     /**
@@ -77,7 +103,7 @@ public class AhpeFile {
      * @return Lines of file
      */
     public static List<String> readLines(final File file) {
-        return Ahpe.yolo(() -> Files.readAllLines(file.toPath())).orElse(new ArrayList<>());
+        return Ahpe.yolo(() -> Files.readAllLines(file.toPath())).nil();
     }
 
     /**
@@ -88,7 +114,7 @@ public class AhpeFile {
      * @return First {howMany} lines
      */
     public static List<String> readFirstLines(final File file, final int howMany) {
-        final List<String> lines = Ahpe.yolo(() -> Files.readAllLines(file.toPath())).orElse(new ArrayList<>());
+        final List<String> lines = Ahpe.yolo(() -> Files.readAllLines(file.toPath())).nil();
         while (lines.size() > howMany) {
             lines.remove(lines.size() - 1);
         }
@@ -109,6 +135,8 @@ public class AhpeFile {
         }
         return lines;
     }
+
+    ///
 
     /**
      * Parses a class from a given CSV- (or separator-separated) String.
