@@ -20,6 +20,10 @@ public class TextField extends TextFieldWrapper<JTextField> {
         super(new JTextField());
     }
 
+    public TextField(final int cols) {
+        super(new JTextField(cols));
+    }
+
     public TextField(final String text) {
         super(new JTextField(text));
     }

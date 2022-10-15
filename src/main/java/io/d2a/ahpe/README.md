@@ -6,29 +6,42 @@
 
 > **A**HPE **H**ELPS **P**ASSING **E**XAMS
 
-## File
+## File (`AhpeFile`)
 
 Verschieden Dateioperationen:
 
-### Lesen
+### Schreiben
 
 ```java
 final File file = new File("hello.txt"); 
 
+
 // 'Hallo Welt!' in Datei schreiben
+// (falls die Datei nicht existiert, wird sie erstellt)
 AhpeFile.append(file, "Hallo Welt!")
 
 // 'Hallo Welt!\n' in Datei schreiben
+// (falls die Datei nicht existiert, wird sie erstellt)
 AhpeFile.appendLine(file, "Hallo Welt!")
 
 // In Datei mit max. 5 Zeilen schreiben
+// (falls die Datei nicht existiert, wird sie erstellt)
 for(int i = 0; i < 20; i++) AhpeFile.appendLineMax(file, "hi" + i, 2);
 // in Datei steht:
 // [ 1 ] hi18
 // [ 2 ] hi19
+
+// ⭐️ Datei mit Inhalt überschreiben
+// Die Datei wird vor dem Schreiben geleert.
+// (falls die Datei nicht existiert, wird sie erstellt)
+AhpeFile.write(file, "Was geht ABAP?");
 ```
 
-### Schreiben
+### Lesen
+
+> **Note**: Wenn eine Datei nicht existiert 
+> und dann von Ahpe gelesen werden soll, wird `null` zurückgegeben.
+> Daher ist es empfehlenswert, vorher zu überprüfen, ob die Datei existiert.
 
 ```java
 final File file = new File("hello.txt"); 
@@ -43,12 +56,20 @@ for (final String line : AhpeFile.readFirstLines(file, 5)) // ...
 
 // Die letzten 5 Zeilen aus Datei lesen
 for (final String line : AhpeFile.readLastLines(file, 5)) // ...
+
+// ⭐️ Datei-Inhalt als String lesen
+// Kann '\n' beinhalten.
+final String content = AhpeFile.read(file);
 ```
 
-### Parsen
+### Parsen von CSV/TSV-Dateien
 
-Falls irgendwelche Daten aus einer Datei "geparsed" werden sollen (z. B. im CSV Format),
-kann ggf. die `AhpeFile#parseSeparatedFile`-Methode helfen.
+> **Warning**: Kommt in der Klausur höchstwahrscheinlich nicht vor.
+> Wurde nur für den Fall der Fälle hinzugefügt.
+
+Falls irgendwelche Daten aus einer CSV oder TSV-Datei
+geparsed werden sollen, kann ggf. die 
+`AhpeFile#parseSeparatedFile`-Methode helfen.
 
 In folgenden Fall kann man die Daten einfach parsen:
 
@@ -57,15 +78,6 @@ peter,22,deutschland
 max,24,schweiz
 martin,26,niederlande
 ```
-
-In folgendem Fall wird es schwierig die Daten mit der Methode zu parsen:
-```
-name: peter, alter: 22, land: deutschland
-name: max, alter: 24, land: schweiz
-name: martin, alter: 26, land: niederlande
-```
-
-Sollten die Daten in einem einfachen Format sein:
 
 1. Passende Klasse mit passendem Konstruktor (public!) zu Daten erstellen
 ```java
@@ -92,28 +104,124 @@ for (final Person person : persons) {
 // Person[name=martin, age=26, country=niederlande]
 ```
 
-## Misc
+## Random (`AhpeRandom`)
 
-* `a <= b <= c` 
-  * `boolean res = AhpeMisc.between(a, b, c)`
-* `a < b < c`
-  * `boolean res = AhpeMisc.betweenEx(a, b, c)`
-* ROT-13 Enkodierung
-  * `String rot13 = AhpeMisc.rot13("Hello!")`
-* Zufalls-Farbe
-  * `Color random = AhpeMisc.randomColor()`
-* Zufalls-Zahl (zwischen)
-  * `int random = AhpeMisc.randomNumber(12, 19)`
-* Zufallswert aus Array
-  * `int random = AhpeMisc.randomArray(new int[] {1, 4, 6, 233, 12})`
-* Zufalls-Enum
-  * `MyEnum random = AhpeMisc.randomArray(MyEnum.values())`
-* Kleinster Wert
-    * `int/double/float random = AhpeMisc.min(1, 4, 6, 2, 0)`
-* Größter Wert
-  * `int/double/float random = AhpeMisc.max(1, 4, 6, 2, 0)`
+```java
+// Zufällige ganze Zahl zwischen 1 und 10 (inklusive)
+final int random = AhpeRandom.randomNumber(1, 10);
 
-## Dialog
+// Zufällige Farbe
+final Color color = AhpeRandom.randomColor();
+
+// Zufällige Farbe
+// mit Max-Werten (inklusive)
+final Color color = AhpeRandom.randomColor(200);
+
+// ⭐️ Zufällige Farbe
+// mit Min- und Max-Werten (inklusive)
+final Color color = AhpeRandom.randomColor(10, 200);
+
+// Zufälliger Wert aus Array
+final String name = AhpeRandom.randomArray(new String[] {"peter", "max", "martin"});
+
+// ⭐️ Zufälliger Wert aus Liste
+final String name = AhpeRandom.randomList(Arrays.asList("peter", "max", "martin"));
+```
+
+## Thread (`AhpeThread`)
+
+```java
+// Aktion nach 10 Sekunden ausführen
+AhpeThread.after(10, TimeUnit.SECONDS, () -> {
+    // ... 
+});
+
+
+// ⭐️ Aktion alle 10 Sekunden ausführen
+AhpeThread.every(10, TimeUnit.SECONDS, () -> {
+    // ...
+});
+// Alias: ApheThread.everySecond(() -> { ... });
+// Alias: ApheThread.everyMinute(() -> { ... });
+
+// ⭐️ Aktion alle 5 Sekunden ausführen mit Beenden
+AhpeThread.every(5, TimeUnit.SECONDS, (tick) -> {
+    // wird true zurückgegeben, wird die Aktion beendet
+    return tick > 10; // nach 10 * 5 Sekunden
+});
+// Alias: ApheThread.everySecond((tick) -> { ... });
+// Alias: ApheThread.everyMinute((tick) -> { ... });
+
+// ⭐️ Countdown für 10 Sekunden
+AhpeThread.countdown(10, 
+  // Wird jede Sekunde ausgeführt
+  (remaining) -> {
+      System.out.println("Noch " + remaining + " Sekunden");
+  }, 
+  // Wird ausgeführt, wenn Countdown abgelaufen ist
+  () -> {
+      System.out.println("Countdown abgelaufen");
+  }
+);
+
+// ⭐️ Countdown für 10 Sekunden mit Beenden
+// True in onRemaining zurückgeben, um den Countdown zu beenden
+AhpeThread.countdownWithCondition(seconds, onRemaining, onDone);
+
+// ⭐️ Counter für 10 Sekunden
+AhpeThread.count(10, 
+  // Wird jede Sekunde ausgeführt
+  (tick) -> {
+      System.out.println(remaining + " Sekunden gezählt");
+  }, 
+  // Wird ausgeführt, wenn Counter Ziel erreicht hat
+  () -> {
+      System.out.println("Counter hat das Ziel erreicht");
+  }
+);
+
+// ⭐️ Counter für 10 Sekunden mit Beenden
+// True in onTick zurückgeben, um den Counter zu beenden
+AhpeThread.countWithCondition(seconds, onTick, onDone);
+```
+
+## Misc (`AhpeMisc`)
+
+```java
+// Prüfen ob a <= b <= c
+if (AhpeMath.between(a, b, c)) { /* ... */ }
+
+// Prüfen ob a < b < c
+if (AhpeMath.betweenEx(a, b, c)) { /* ... */ }
+
+// ROT-13 "Verschlüsselung"
+final String encrypted = AhpeMisc.rot13("hallo");
+
+// Größte Zahl aus Array
+final int/double/float max = AhpeMisc.max(1, 2, 3, 5, 1);
+
+// Größter Wert mit Comparator
+final T max = AhpeMisc.max(new Comparator<T, T>() {
+    @Override
+    public int compare(T o1, T o2) {
+        return o1.getValue() - o2.getValue();
+    }
+}, new T(1), new T(2), new T(3));
+
+// Kleinste Zahl aus Array
+final int/double/float min = AhpeMisc.min(1, 2, 3, 5, 1);
+
+// Kleinster Wert mit Comparator
+final T min = AhpeMisc.min(new Comparator<T, T>() {
+    @Override
+    public int compare(T o1, T o2) {
+        return o1.getValue() - o2.getValue();
+    }
+}, new T(1), new T(2), new T(3));
+```
+## Dialog (`AhpeDialog`)
+
+```java
 
 Aliases zu `JOptionPane`:
 
@@ -125,17 +233,11 @@ ApheDialog.warn("Hello", "World");
 ApheDialog.error("Hello", "World");
 ```
 
-## Thread
+## Swing (*Swag*)
 
-Aktion nach 10s ausführen
-
-```java
-AhpeThread.after(10, TimeUnit.SECONDS, () -> {
-    // ... 
-});
-```
-
-## Swing (Swag)
+> **Note**: Für folgende Komponenten muss das
+> [`io.d2a.swag`](https://github.com/darmiel/swag/tree/master/src/main/java/io/d2a/swag)
+> Package ebenfalls in das Projekt übernommen werden.
 
 ### Enum Radio Button Group
 
@@ -151,11 +253,11 @@ enum State {
     DND
 }
 // ...
-final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // or Radio.group(State.values())
-    .onChange(state -> { // also available as onChange(BiConsumer<T, ActionEvent>)
+final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // oder Radio.group(State.values()) für alle Werte eines Enums
+    .onChange(state -> { // auch als BiConsumer<T, ActionEvent> verfügbar
         System.out.println("Switched State to: " + state);
     })
-    .asPanel();
+    .asPanel(); // oder `.addTo(JPanel)` für direktes Hinzufügen
 ```
 
 ---
@@ -178,21 +280,43 @@ this.add(Placeholder.extend("Alter", ageField));
 
 ---
 
-### Component Builders
+### Layouts
 
-Ein paar Builder Klassen zum schnelleren Erstellen von Layouts / Controls
+```java
+// ⭐️ BorderLayout
+this.add(Border.create()
+    .top(new JLabel("Top")) // oder .north()
+    .right(new JLabel("Right")) // oder .east()
+    .bottom(new JButton("Bottom")) // oder .south()
+    .left(new JLabel("Left"))); // oder .west()
+
+// BoxLayout
+this.add(Box.vertical()
+    .with(new JLabel("Hello")
+    .with(Box.horizontal()
+        .with(new JLabel("World"))
+        .with(new JButton("Klick!")))));
+
+// FlowLayout
+this.add(Flow.center() // oder Flow.center(new JLabel("Hello"))
+    .with(new JLabel("Hello"))
+    .with(Flow.left().with(/* ... */))); // left, right, center
+```
+
+---
 
 #### Grid
 
 ![](./assets/swing-grid.png)
 
 ```java
+// Grid
 this.add(Grid.builder()
-        .headers("Name", "Age", "Action")
-        .with("Peter", 32, "Cannot be fired")
-        .with("Max", 19, new Button("Fire"))
-        .with("Simon", 40, "Cannot be fired")
-        .build());
+    .headers("Name", "Age", "Action")
+    .with("Max", 28, new JButton("Fire!"))
+    .with("Luca H", 20, new JButton("Fire!!!"))
+    .with("Simon", 40, "Cannot be fired")
+    .build());
 ```
 
 Kann auch für Eingabfelder verwendet werden:
@@ -201,16 +325,49 @@ Kann auch für Eingabfelder verwendet werden:
 
 ```java
 this.add(Grid.builder()
-        .with("Name", Placeholder.extend("Name", new JTextField()))
-        .with("Alter", Placeholder.extend("Alter", new JTextField()))
-        .with("Adresse", Placeholder.extend("Adresse", new JTextField()))
-        .with("Geschlecht", Placeholder.extend("Geschlecht", new JTextField()))
+        .with("Name", new JTextField())
+        .with("Alter", new JTextField())
+        .with("Adresse", new JTextField())
+        .with("Geschlecht", new JTextField())
         .build());
 ```
 
+---
 
 #### Buttons and Layouts
 
+Folgende Komponenten stehen im Method-Chaining-Pattern zur Verfügung:
+
+**Button**
+```java
+this.add(new Button("Title")
+    .click(() -> {
+        // Knopf wurde gedrückt
+    })
+    .text("Neuer Text")
+    .disable()
+    .raw(jButton -> {
+        // ⭐️ Direkter Zugriff auf die JButton-Instanz
+        jButton.setEnabled(false);
+    })
+    .build());
+```
+
+**TextField/TextArea**
+```java
+this.add(new TextField(10)
+    .enter(() -> {
+        // Enter wurde gedrückt
+    })
+    .key('a', () -> {
+        // a wurde gedrückt
+    })
+    .font(new Font(/* ... */))
+    .raw(jTextField -> { /* ... */ }) // ⭐️ Direkter Zugriff auf die JTextField-Instanz
+    .build());
+```
+
+**Komplettes Beispiel**
 ```java
 this.add(Box.vertical()
     .with(Header.of("Knopf"))

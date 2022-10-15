@@ -19,6 +19,10 @@ public class TextArea extends TextFieldWrapper<JTextArea> {
         super(new JTextArea());
     }
 
+    public TextArea(final int rows, final int cols) {
+        super(new JTextArea(rows, cols));
+    }
+
     public TextArea(final String text) {
         super(new JTextArea(text));
     }
