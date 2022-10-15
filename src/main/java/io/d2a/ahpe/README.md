@@ -1,16 +1,10 @@
-<p align="center">
-  <img src="./assets/ahpe.png" alt="ape sitting on a desk and reading a book" height="316px">
-</p>
+![](./assets/header.png)
 
-# AHPE
-
-> **A**HPE **H**ELPS **P**ASSING **E**XAMS
-
-## File (`AhpeFile`)
+# File (`AhpeFile`)
 
 Verschieden Dateioperationen:
 
-### Schreiben
+## Schreiben
 
 ```java
 final File file = new File("hello.txt"); 
@@ -37,7 +31,7 @@ for(int i = 0; i < 20; i++) AhpeFile.appendLineMax(file, "hi" + i, 2);
 AhpeFile.write(file, "Was geht ABAP?");
 ```
 
-### Lesen
+## Lesen
 
 > **Note**: Wenn eine Datei nicht existiert 
 > und dann von Ahpe gelesen werden soll, wird `null` zurückgegeben.
@@ -62,7 +56,7 @@ for (final String line : AhpeFile.readLastLines(file, 5)) // ...
 final String content = AhpeFile.read(file);
 ```
 
-### Parsen von CSV/TSV-Dateien
+## Parsen von CSV/TSV-Dateien
 
 > **Warning**: Kommt in der Klausur höchstwahrscheinlich nicht vor.
 > Wurde nur für den Fall der Fälle hinzugefügt.
@@ -104,7 +98,7 @@ for (final Person person : persons) {
 // Person[name=martin, age=26, country=niederlande]
 ```
 
-## Random (`AhpeRandom`)
+# Random (`AhpeRandom`)
 
 ```java
 // Zufällige ganze Zahl zwischen 1 und 10 (inklusive)
@@ -128,7 +122,7 @@ final String name = AhpeRandom.randomArray(new String[] {"peter", "max", "martin
 final String name = AhpeRandom.randomList(Arrays.asList("peter", "max", "martin"));
 ```
 
-## Thread (`AhpeThread`)
+# Thread (`AhpeThread`)
 
 ```java
 // Aktion nach 10 Sekunden ausführen
@@ -185,7 +179,7 @@ AhpeThread.count(10,
 AhpeThread.countWithCondition(seconds, onTick, onDone);
 ```
 
-## Misc (`AhpeMisc`)
+# Misc (`AhpeMisc`)
 
 ```java
 // Prüfen ob a <= b <= c
@@ -219,7 +213,7 @@ final T min = AhpeMisc.min(new Comparator<T, T>() {
     }
 }, new T(1), new T(2), new T(3));
 ```
-## Dialog (`AhpeDialog`)
+# Dialog (`AhpeDialog`)
 
 ```java
 
@@ -233,13 +227,13 @@ ApheDialog.warn("Hello", "World");
 ApheDialog.error("Hello", "World");
 ```
 
-## Swing (*Swag*)
+# Swing (*Swag*)
 
 > **Note**: Für folgende Komponenten muss das
 > [`io.d2a.swag`](https://github.com/darmiel/swag/tree/master/src/main/java/io/d2a/swag)
 > Package ebenfalls in das Projekt übernommen werden.
 
-### Enum Radio Button Group
+## Enum Radio Button Group
 
 Zeigt Radio Buttons mit den Werten von einem Objekt (oder Enums) an.  
 Beim Wechsel wird `onChange` mit dem neuen State aufgerufen.
@@ -262,7 +256,7 @@ final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // oder
 
 ---
 
-### Placeholders
+## Placeholders
 
 Die `Placeholder`-Klasse erlaubt es, Platzhalter in `JTextField`s und `JTextArea`s anzuzeigen:
 
@@ -280,7 +274,7 @@ this.add(Placeholder.extend("Alter", ageField));
 
 ---
 
-### Layouts
+## Layouts
 
 ```java
 // ⭐️ BorderLayout
@@ -305,7 +299,7 @@ this.add(Flow.center() // oder Flow.center(new JLabel("Hello"))
 
 ---
 
-#### Grid
+### Grid
 
 ![](./assets/swing-grid.png)
 
@@ -334,7 +328,7 @@ this.add(Grid.builder()
 
 ---
 
-#### Buttons and Layouts
+### Buttons and Layouts
 
 Folgende Komponenten stehen im Method-Chaining-Pattern zur Verfügung:
 
