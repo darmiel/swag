@@ -1,6 +1,6 @@
-package io.d2a.swag.builder.components.text;
+package io.d2a.swag.components;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
 
 import javax.swing.text.JTextComponent;
 import java.util.function.Supplier;

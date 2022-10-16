@@ -1,4 +1,4 @@
-package io.d2a.swag.builder.components.text;
+package io.d2a.swag.components;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.dnd.DropTarget;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
 
 public class TextArea extends TextFieldWrapper<JTextArea> {

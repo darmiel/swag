@@ -1,7 +1,8 @@
-package io.d2a.swag.builder.components;
+package io.d2a.swag.templates;
+
+import io.d2a.swag.components.Panel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import java.util.List;
@@ -24,6 +25,8 @@ public class Radio<T> {
         }
         return radio;
     }
+
+    ///
 
     private final ButtonGroup group;
 
@@ -80,19 +83,13 @@ public class Radio<T> {
     }
 
     public Radio<T> select(final T t) {
-
-        final JLabel label = new JLabel("Jan stinkt");
-
         for (final JRadioButton button : this.buttons) {
-            if (button.getText().equals(t.toString())) {
-                button.setSelected(true);
-                break;
-            }
+            button.setSelected(button.getText().equals(t.toString()));
         }
         return this;
     }
 
-    public static class RadioPanel<T> extends JPanel {
+    public static class RadioPanel<T> extends Panel {
         private final List<JRadioButton> buttons;
 
         public RadioPanel(final List<JRadioButton> buttons) {

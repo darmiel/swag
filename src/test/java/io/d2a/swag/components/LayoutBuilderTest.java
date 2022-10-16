@@ -1,7 +1,7 @@
 package io.d2a.swag.components;
 
-import io.d2a.swag.builder.layouts.Box;
-import io.d2a.swag.builder.layouts.Flow;
+import io.d2a.swag.layouts.Box;
+import io.d2a.swag.layouts.Flow;
 
 import javax.swing.*;
 import java.awt.*;

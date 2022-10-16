@@ -273,7 +273,7 @@ final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // oder
     .onChange(state -> { // auch als BiConsumer<T, ActionEvent> verfügbar
         System.out.println("Switched State to: " + state);
     })
-    .selected(State.ONLINE)    
+    .select(State.ONLINE)    
     .asPanel(); // oder `.addTo(JPanel)` für direktes Hinzufügen
 ```
 

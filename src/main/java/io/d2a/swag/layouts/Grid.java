@@ -1,7 +1,8 @@
-package io.d2a.swag.builder.layouts;
+package io.d2a.swag.layouts;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
 import io.d2a.swag.templates.Header;
+import io.d2a.swag.components.Panel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Grid extends JPanel {
+public class Grid extends Panel {
 
     public Grid() {
         this.setLayout(new GridLayout());

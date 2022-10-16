@@ -1,6 +1,6 @@
 package io.d2a.swag.templates;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
 
 import javax.swing.*;
 import java.awt.*;

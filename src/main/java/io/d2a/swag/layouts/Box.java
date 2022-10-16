@@ -1,11 +1,12 @@
-package io.d2a.swag.builder.layouts;
+package io.d2a.swag.layouts;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
+import io.d2a.swag.components.Panel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Box extends JPanel {
+public class Box extends Panel {
 
     private Box(final int axis) {
         this.setLayout(new BoxLayout(this, axis));

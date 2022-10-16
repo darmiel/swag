@@ -1,4 +1,4 @@
-package io.d2a.swag.builder;
+package io.d2a.swag;
 
 import java.awt.*;
 

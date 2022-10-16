@@ -1,6 +1,6 @@
-package io.d2a.swag.builder.components;
+package io.d2a.swag.components;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
 
 import javax.swing.*;
 import javax.swing.border.Border;

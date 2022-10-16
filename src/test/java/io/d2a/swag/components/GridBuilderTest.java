@@ -1,6 +1,6 @@
 package io.d2a.swag.components;
 
-import io.d2a.swag.builder.layouts.Grid;
+import io.d2a.swag.layouts.Grid;
 
 import javax.swing.*;
 

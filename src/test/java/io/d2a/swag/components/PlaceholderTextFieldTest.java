@@ -1,6 +1,6 @@
 package io.d2a.swag.components;
 
-import io.d2a.swag.components.placeholder.Placeholder;
+import io.d2a.swag.placeholder.Placeholder;
 
 import javax.swing.*;
 

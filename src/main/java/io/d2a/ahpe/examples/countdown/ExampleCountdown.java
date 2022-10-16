@@ -3,10 +3,10 @@ package io.d2a.ahpe.examples.countdown;
 import io.d2a.ahpe.AhpeMisc;
 import io.d2a.ahpe.AhpeRandom;
 import io.d2a.ahpe.AhpeThread;
-import io.d2a.swag.builder.components.Button;
-import io.d2a.swag.builder.components.text.TextField;
-import io.d2a.swag.builder.layouts.Border;
-import io.d2a.swag.builder.layouts.Box;
+import io.d2a.swag.components.Button;
+import io.d2a.swag.components.TextField;
+import io.d2a.swag.layouts.Border;
+import io.d2a.swag.layouts.Box;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,7 @@ public class ExampleCountdown extends JFrame {
 
     public ExampleCountdown() throws HeadlessException {
         // add components
-        this.add(Border.padding(5, 5)
+        this.add(Border.gap(5, 5)
                 .top(this.timeLabel)
                 .center(this.component)
                 .bottom(Box.horizontal()

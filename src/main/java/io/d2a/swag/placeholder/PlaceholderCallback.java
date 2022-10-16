@@ -1,4 +1,4 @@
-package io.d2a.swag.components.placeholder;
+package io.d2a.swag.placeholder;
 
 public interface PlaceholderCallback {
 

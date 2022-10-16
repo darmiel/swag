@@ -1,13 +1,10 @@
 package io.d2a.ahpe.examples.radio;
 
-import io.d2a.ahpe.AhpeDialog;
 import io.d2a.ahpe.AhpeMisc;
 import io.d2a.ahpe.AhpeRandom;
 import io.d2a.ahpe.examples.countdown.ChatMessagesComponent;
-import io.d2a.swag.builder.components.Radio;
-import io.d2a.swag.builder.layouts.Border;
-import io.d2a.swag.builder.layouts.Grid;
-import io.d2a.swag.components.placeholder.Placeholder;
+import io.d2a.swag.templates.Radio;
+import io.d2a.swag.layouts.Border;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,11 +50,12 @@ public class RadioExample extends JFrame {
     }
 
     public RadioExample() throws HeadlessException {
-        this.add(Border.padding(5, 5)
+        this.add(Border.gap(5, 5)
                 .top(this.statusPanel)
-                .center(component));
+                .center(component)
+                .padding(15));
 
-        AhpeMisc.visible(this);
+        AhpeMisc.visible(this, 30, 0);
     }
 
     public static void main(String[] args) {

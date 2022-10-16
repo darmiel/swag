@@ -142,10 +142,17 @@ public class AhpeMisc {
         return builder.toString();
     }
 
-    public static void visible(final JFrame frame) {
+    public static void visible(final JFrame frame, final int addHeight, final int addWidth) {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        if (addWidth != 0 || addHeight != 0) {
+            frame.setSize(frame.getWidth() + addWidth, frame.getHeight() + addHeight);
+        }
+    }
+
+    public static void visible(final JFrame frame) {
+        AhpeMisc.visible(frame, 0, 0);
     }
 
 }

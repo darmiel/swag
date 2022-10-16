@@ -1,6 +1,4 @@
-package io.d2a.swag.builder.components.text;
-
-import io.d2a.swag.builder.components.Button;
+package io.d2a.swag.components;
 
 import javax.swing.*;
 import javax.swing.border.Border;

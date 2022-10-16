@@ -2,10 +2,10 @@ package io.d2a.ahpe.examples.grid;
 
 import io.d2a.ahpe.AhpeDialog;
 import io.d2a.ahpe.AhpeMisc;
-import io.d2a.swag.builder.components.Button;
-import io.d2a.swag.builder.layouts.Border;
-import io.d2a.swag.builder.layouts.Flow;
-import io.d2a.swag.builder.layouts.Grid;
+import io.d2a.swag.components.Button;
+import io.d2a.swag.layouts.Border;
+import io.d2a.swag.layouts.Flow;
+import io.d2a.swag.layouts.Grid;
 import io.d2a.swag.templates.Header;
 
 import javax.swing.*;

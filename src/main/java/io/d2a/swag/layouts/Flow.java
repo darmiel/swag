@@ -1,11 +1,11 @@
-package io.d2a.swag.builder.layouts;
+package io.d2a.swag.layouts;
 
-import io.d2a.swag.builder.ComponentBuilder;
+import io.d2a.swag.ComponentBuilder;
+import io.d2a.swag.components.Panel;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class Flow extends JPanel {
+public class Flow extends Panel {
 
     public Flow(final int align, final int hgap, final int vgap) {
         this.setLayout(new FlowLayout(align, hgap, vgap));
