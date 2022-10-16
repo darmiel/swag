@@ -257,6 +257,9 @@ ApheDialog.error("Hello", "World");
 Zeigt Radio Buttons mit den Werten von einem Objekt (oder Enums) an.  
 Beim Wechsel wird `onChange` mit dem neuen State aufgerufen.
 
+> **Note**: Die `Radio`-Klasse zeigt als Text die `toString()`-Methode des Objektes an.
+> 
+
 ![](assets/swing-radio.png)
 
 ```java
@@ -270,6 +273,7 @@ final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // oder
     .onChange(state -> { // auch als BiConsumer<T, ActionEvent> verfügbar
         System.out.println("Switched State to: " + state);
     })
+    .selected(State.ONLINE)    
     .asPanel(); // oder `.addTo(JPanel)` für direktes Hinzufügen
 ```
 

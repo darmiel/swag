@@ -89,6 +89,16 @@ public class Grid extends JPanel {
             return this;
         }
 
+        /**
+         * Alias to {@link Geritt#with(Object...)}
+         *
+         * @param objects Objects to add
+         * @return Geritt instance
+         */
+        public Geritt data(final Object... objects) {
+            return this.with(objects);
+        }
+
         @Override
         public Grid build() {
             final Object[] objects = new Object[this.cols * this.rows.size()];

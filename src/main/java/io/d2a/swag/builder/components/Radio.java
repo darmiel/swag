@@ -1,8 +1,10 @@
 package io.d2a.swag.builder.components;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -12,7 +14,7 @@ import java.util.function.Consumer;
 public class Radio<T> {
 
     @SafeVarargs
-    public static <T> Radio<T> group(final T ... names) {
+    public static <T> Radio<T> group(final T... names) {
         final Radio<T> radio = new Radio<>();
         for (final T obj : names) {
             if (obj == null) {
@@ -90,12 +92,34 @@ public class Radio<T> {
         return this;
     }
 
-    public JPanel asPanel() {
+    public static class RadioPanel<T> extends JPanel {
+        private final List<JRadioButton> buttons;
+
+        public RadioPanel(final List<JRadioButton> buttons) {
+            this.buttons = buttons;
+        }
+
+        public JRadioButton getButton(final T t) {
+            for (JRadioButton button : this.buttons) {
+                if (button.getText().equals(Objects.toString(t))) {
+                    return button;
+                }
+            }
+            return null;
+        }
+
+        public List<JRadioButton> getButtons() {
+            return buttons;
+        }
+
+    }
+
+    public RadioPanel<T> asPanel() {
         return this.asPanel(BoxLayout.X_AXIS);
     }
 
-    public JPanel asPanel(final int align) {
-        final JPanel panel = new JPanel();
+    public RadioPanel<T> asPanel(final int align) {
+        final RadioPanel<T> panel = new RadioPanel<>(this.buttons);
         final BoxLayout box = new BoxLayout(panel, align);
         panel.setLayout(box);
         this.addTo(panel);

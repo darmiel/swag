@@ -11,8 +11,16 @@ public class Border extends JPanel {
         this.setLayout(new BorderLayout());
     }
 
+    private Border(final int hgap, final int vgap) {
+        this.setLayout(new BorderLayout(hgap, vgap));
+    }
+
     public static Border create() {
         return new Border();
+    }
+
+    public static Border padding(final int hgap, final int vgap) {
+        return new Border(hgap, vgap);
     }
 
     //

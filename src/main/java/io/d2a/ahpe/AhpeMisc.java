@@ -1,5 +1,6 @@
 package io.d2a.ahpe;
 
+import javax.swing.*;
 import java.util.Comparator;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -8,6 +9,7 @@ public class AhpeMisc {
 
     /**
      * Checks if b is between a and b (inclusive)
+     *
      * @param a value a
      * @param b value b
      * @param c value c
@@ -19,6 +21,7 @@ public class AhpeMisc {
 
     /**
      * Checks if b is between a and b (exclusive)
+     *
      * @param a value a
      * @param b value b
      * @param c value c
@@ -30,6 +33,7 @@ public class AhpeMisc {
 
     /**
      * ROT13-Encodes a string
+     *
      * @param message string
      * @return rot13-encoded string
      */
@@ -48,15 +52,17 @@ public class AhpeMisc {
         }
         return builder.toString();
     }
+
     /**
      * Returns the min value from multiple values
+     *
      * @param comparator comparator for values
-     * @param values values
+     * @param values     values
+     * @param <T>        type of values
      * @return min value
-     * @param <T> type of values
      */
     @SafeVarargs
-    public static <T> T min(final Comparator<T> comparator, final T ... values) {
+    public static <T> T min(final Comparator<T> comparator, final T... values) {
         T max = null;
         for (int i = 0; i < values.length; i++) {
             final T value = values[i];
@@ -69,32 +75,35 @@ public class AhpeMisc {
 
     /**
      * Returns the min value from multiple integers
+     *
      * @param values integer values
      * @return min integer value
      */
-    public static int min(final int ... values) {
+    public static int min(final int... values) {
         return IntStream.of(values).min().orElse(0);
     }
 
     /**
      * Returns the min value from multiple doubles
+     *
      * @param values double values
      * @return min double value
      */
-    public static double min(final double ... values) {
+    public static double min(final double... values) {
         return DoubleStream.of(values).min().orElse(0.0);
     }
 
 
     /**
      * Returns the max value from multiple values
+     *
      * @param comparator comparator for values
-     * @param values values
+     * @param values     values
+     * @param <T>        type of values
      * @return max value
-     * @param <T> type of values
      */
     @SafeVarargs
-    public static <T> T max(final Comparator<T> comparator, final T ... values) {
+    public static <T> T max(final Comparator<T> comparator, final T... values) {
         T max = null;
         for (int i = 0; i < values.length; i++) {
             final T value = values[i];
@@ -107,20 +116,36 @@ public class AhpeMisc {
 
     /**
      * Returns the max value from multiple integers
+     *
      * @param values integer values
      * @return max integer value
      */
-    public static int max(final int ... values) {
+    public static int max(final int... values) {
         return IntStream.of(values).max().orElse(0);
     }
 
     /**
      * Returns the max value from multiple doubles
+     *
      * @param values double values
      * @return max double value
      */
-    public static double max(final double ... values) {
+    public static double max(final double... values) {
         return DoubleStream.of(values).max().orElse(0.0);
+    }
+
+    public static String repeat(final String what, final long howMany) {
+        final StringBuilder builder = new StringBuilder();
+        for (long i = 0; i < howMany; i++) {
+            builder.append(what);
+        }
+        return builder.toString();
+    }
+
+    public static void visible(final JFrame frame) {
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 
 }
