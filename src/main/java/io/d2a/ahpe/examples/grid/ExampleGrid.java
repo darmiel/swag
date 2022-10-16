@@ -2,11 +2,11 @@ package io.d2a.ahpe.examples.grid;
 
 import io.d2a.ahpe.AhpeDialog;
 import io.d2a.ahpe.AhpeMisc;
-import io.d2a.swag.components.Button;
-import io.d2a.swag.layouts.Border;
-import io.d2a.swag.layouts.Flow;
-import io.d2a.swag.layouts.Grid;
-import io.d2a.swag.templates.Header;
+import io.d2a.swag.components.SButton;
+import io.d2a.swag.layouts.SBorder;
+import io.d2a.swag.layouts.SFlow;
+import io.d2a.swag.layouts.SGrid;
+import io.d2a.swag.templates.SHeader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ public class ExampleGrid extends JFrame {
 
     private final JLabel statusLabel = new JLabel("Letzte Aktion:");
 
-    private final JButton fireButton = new Button("Christian Feuern")
+    private final JButton fireButton = new SButton("Christian Feuern")
             .click((event) -> fire("Christian"))
             .build();
 
@@ -32,11 +32,11 @@ public class ExampleGrid extends JFrame {
     }
 
     public ExampleGrid() throws HeadlessException {
-        this.setLayout(Flow.center(10, 10).getLayout());
+        this.setLayout(SFlow.center(10, 10).getLayout());
 
-        this.add(Border.create()
-                .top(Flow.center(Header.of("Die Feuerstation")))
-                .center(Grid.builder()
+        this.add(SBorder.create()
+                .top(SFlow.center(SHeader.of("Die Feuerstation")))
+                .center(SGrid.builder()
                         .headers(4, "Name", "Position", "Aktionen")
                         .data("Simon", "Ausbildungsleiter", "Kann nicht gefeuert werden")
                         .data("Christian", "CEO", fireButton)

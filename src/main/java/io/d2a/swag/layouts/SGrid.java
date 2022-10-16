@@ -1,8 +1,8 @@
 package io.d2a.swag.layouts;
 
 import io.d2a.swag.ComponentBuilder;
-import io.d2a.swag.templates.Header;
-import io.d2a.swag.components.Panel;
+import io.d2a.swag.templates.SHeader;
+import io.d2a.swag.components.SPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,22 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Grid extends Panel {
+public class SGrid extends SPanel {
 
-    public Grid() {
+    public SGrid() {
         this.setLayout(new GridLayout());
     }
 
-    public Grid(final int rows, final int cols) {
+    public SGrid(final int rows, final int cols) {
         this.setLayout(new GridLayout(rows, cols));
     }
 
-    public Grid(final int rows, final int cols, final int hgap, final int vgap) {
+    public SGrid(final int rows, final int cols, final int hgap, final int vgap) {
         this.setLayout(new GridLayout(rows, cols, hgap, vgap));
     }
 
-    public static Grid of(final int cols, final Object... components) {
-        final Grid grid = new Grid(components.length / cols, cols);
+    public static SGrid of(final int cols, final Object... components) {
+        final SGrid grid = new SGrid(components.length / cols, cols);
         for (final Object object : components) {
             if (object instanceof Component component) {
                 grid.add(component);
@@ -39,12 +39,12 @@ public class Grid extends Panel {
     }
 
 
-    public Grid with(final ComponentBuilder<?> builder) {
+    public SGrid with(final ComponentBuilder<?> builder) {
         this.add(builder.build());
         return this;
     }
 
-    public Grid with(final Component component) {
+    public SGrid with(final Component component) {
         this.add(component);
         return this;
     }
@@ -53,7 +53,7 @@ public class Grid extends Panel {
         return new Geritt();
     }
 
-    public static class Geritt implements ComponentBuilder<Grid> {
+    public static class Geritt implements ComponentBuilder<SGrid> {
 
         private int cols = -1;
         private final List<Object[]> rows = new ArrayList<>();
@@ -74,7 +74,7 @@ public class Grid extends Panel {
             }
             final Object[] objects = new Object[headers.length];
             for (int i = 0; i < headers.length; i++) {
-                objects[i] = Header.of(level, headers[i]);
+                objects[i] = SHeader.of(level, headers[i]);
             }
             this.rows.add(objects);
             return this;
@@ -101,7 +101,7 @@ public class Grid extends Panel {
         }
 
         @Override
-        public Grid build() {
+        public SGrid build() {
             final Object[] objects = new Object[this.cols * this.rows.size()];
             int i = 0;
             for (final Object[] row : rows) {
@@ -109,7 +109,7 @@ public class Grid extends Panel {
                     objects[i++] = o;
                 }
             }
-            return Grid.of(this.cols, objects);
+            return SGrid.of(this.cols, objects);
         }
 
     }

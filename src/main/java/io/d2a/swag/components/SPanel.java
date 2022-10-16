@@ -5,39 +5,39 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class Panel extends JPanel {
+public class SPanel extends JPanel {
 
-    public Panel(LayoutManager layout, boolean isDoubleBuffered) {
+    public SPanel(LayoutManager layout, boolean isDoubleBuffered) {
         super(layout, isDoubleBuffered);
     }
 
-    public Panel(LayoutManager layout) {
+    public SPanel(LayoutManager layout) {
         super(layout);
     }
 
-    public Panel(boolean isDoubleBuffered) {
+    public SPanel(boolean isDoubleBuffered) {
         super(isDoubleBuffered);
     }
 
-    public Panel() {
+    public SPanel() {
 
     }
 
-    public Panel border(final Border border) {
+    public SPanel border(final Border border) {
         this.setBorder(border);
         return this;
     }
 
-    public Panel padding(final int top, final int left, final int bottom, final int right) {
+    public SPanel padding(final int top, final int left, final int bottom, final int right) {
         this.setBorder(new EmptyBorder(top, left, bottom, right));
         return this;
     }
 
-    public Panel padding(final int vertical, final int horizontal) {
+    public SPanel padding(final int vertical, final int horizontal) {
         return this.padding(vertical, horizontal, vertical, horizontal);
     }
 
-    public Panel padding(final int padding) {
+    public SPanel padding(final int padding) {
         return this.padding(padding, padding);
     }
 

@@ -1,6 +1,6 @@
 package io.d2a.swag.templates;
 
-import io.d2a.swag.components.Panel;
+import io.d2a.swag.components.SPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,11 @@ import java.util.function.Consumer;
 /**
  *
  */
-public class Radio<T> {
+public class SRadio<T> {
 
     @SafeVarargs
-    public static <T> Radio<T> group(final T... names) {
-        final Radio<T> radio = new Radio<>();
+    public static <T> SRadio<T> group(final T... names) {
+        final SRadio<T> radio = new SRadio<>();
         for (final T obj : names) {
             if (obj == null) {
                 continue;
@@ -33,7 +33,7 @@ public class Radio<T> {
     private final List<JRadioButton> buttons;
     private final List<Object> listeners;
 
-    public Radio() {
+    public SRadio() {
         this.group = new ButtonGroup();
         this.buttons = new ArrayList<>();
         this.listeners = new ArrayList<>();
@@ -55,12 +55,12 @@ public class Radio<T> {
 
     /// Listeners
 
-    public Radio<T> onChange(BiConsumer<T, ActionEvent> listener) {
+    public SRadio<T> onChange(BiConsumer<T, ActionEvent> listener) {
         this.listeners.add(listener);
         return this;
     }
 
-    public Radio<T> onChange(Consumer<T> listener) {
+    public SRadio<T> onChange(Consumer<T> listener) {
         this.listeners.add(listener);
         return this;
     }
@@ -82,14 +82,14 @@ public class Radio<T> {
         this.buttons.forEach(component::add);
     }
 
-    public Radio<T> select(final T t) {
+    public SRadio<T> select(final T t) {
         for (final JRadioButton button : this.buttons) {
             button.setSelected(button.getText().equals(t.toString()));
         }
         return this;
     }
 
-    public static class RadioPanel<T> extends Panel {
+    public static class RadioPanel<T> extends SPanel {
         private final List<JRadioButton> buttons;
 
         public RadioPanel(final List<JRadioButton> buttons) {

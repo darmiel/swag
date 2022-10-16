@@ -3,10 +3,10 @@ package io.d2a.ahpe.examples.countdown;
 import io.d2a.ahpe.AhpeMisc;
 import io.d2a.ahpe.AhpeRandom;
 import io.d2a.ahpe.AhpeThread;
-import io.d2a.swag.components.Button;
-import io.d2a.swag.components.TextField;
-import io.d2a.swag.layouts.Border;
-import io.d2a.swag.layouts.Box;
+import io.d2a.swag.components.SButton;
+import io.d2a.swag.components.STextField;
+import io.d2a.swag.layouts.SBorder;
+import io.d2a.swag.layouts.SBox;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class ExampleCountdown extends JFrame {
     // Components
     private final ChatMessagesComponent component = new ChatMessagesComponent();
 
-    private final JTextField textField = new TextField(20)
+    private final JTextField textField = new STextField(20)
             .enter(this::sendMessage)
             .build();
 
@@ -55,12 +55,12 @@ public class ExampleCountdown extends JFrame {
 
     public ExampleCountdown() throws HeadlessException {
         // add components
-        this.add(Border.gap(5, 5)
+        this.add(SBorder.gap(5, 5)
                 .top(this.timeLabel)
                 .center(this.component)
-                .bottom(Box.horizontal()
+                .bottom(SBox.horizontal()
                         .with(this.textField)
-                        .with(new Button("Senden")
+                        .with(new SButton("Senden")
                                 .click((event) -> this.sendMessage()))));
 
         // updated time every second

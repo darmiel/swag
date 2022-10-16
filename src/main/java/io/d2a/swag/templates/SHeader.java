@@ -5,7 +5,7 @@ import io.d2a.swag.ComponentBuilder;
 import javax.swing.*;
 import java.awt.*;
 
-public final class Header implements ComponentBuilder<JLabel> {
+public final class SHeader implements ComponentBuilder<JLabel> {
 
     public static final float[] LEVELS = {
             26, 24, 20, 16, 14
@@ -15,20 +15,20 @@ public final class Header implements ComponentBuilder<JLabel> {
     private final String heading;
     private Color color = null;
 
-    public Header(int level, String heading) {
+    public SHeader(int level, String heading) {
         this.level = level;
         this.heading = heading;
     }
 
-    public static Header of(final String heading) {
+    public static SHeader of(final String heading) {
         return of(1, heading);
     }
 
-    public static Header of(final int level, final String heading) {
-        return new Header(level, heading);
+    public static SHeader of(final int level, final String heading) {
+        return new SHeader(level, heading);
     }
 
-    public Header color(final Color color) {
+    public SHeader color(final Color color) {
         this.color = color;
         return this;
     }

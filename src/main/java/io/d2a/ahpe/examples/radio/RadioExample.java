@@ -3,8 +3,8 @@ package io.d2a.ahpe.examples.radio;
 import io.d2a.ahpe.AhpeMisc;
 import io.d2a.ahpe.AhpeRandom;
 import io.d2a.ahpe.examples.countdown.ChatMessagesComponent;
-import io.d2a.swag.templates.Radio;
-import io.d2a.swag.layouts.Border;
+import io.d2a.swag.templates.SRadio;
+import io.d2a.swag.layouts.SBorder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public class RadioExample extends JFrame {
 
     final ChatMessagesComponent component = new ChatMessagesComponent();
 
-    private final Radio.RadioPanel<Status> statusPanel = Radio.group(Status.values())
+    private final SRadio.RadioPanel<Status> statusPanel = SRadio.group(Status.values())
             .select(Status.ONLINE)
             .onChange(this::handleStatusChange)
             .asPanel();
@@ -50,7 +50,7 @@ public class RadioExample extends JFrame {
     }
 
     public RadioExample() throws HeadlessException {
-        this.add(Border.gap(5, 5)
+        this.add(SBorder.gap(5, 5)
                 .top(this.statusPanel)
                 .center(component)
                 .padding(15));
