@@ -154,16 +154,16 @@ AhpeThread.after(10, TimeUnit.SECONDS, () -> {
 AhpeThread.every(10, TimeUnit.SECONDS, () -> {
     // ...
 });
-// Alias: ApheThread.everySecond(() -> { ... });
-// Alias: ApheThread.everyMinute(() -> { ... });
+// Alias: AhpeThread.everySecond(() -> { ... });
+// Alias: AhpeThread.everyMinute(() -> { ... });
 
 // ⭐️ Aktion alle 5 Sekunden ausführen mit Beenden
 AhpeThread.every(5, TimeUnit.SECONDS, (tick) -> {
     // wird true zurückgegeben, wird die Aktion beendet
     return tick > 10; // nach 10 * 5 Sekunden
 });
-// Alias: ApheThread.everySecond((tick) -> { ... });
-// Alias: ApheThread.everyMinute((tick) -> { ... });
+// Alias: AhpeThread.everySecond((tick) -> { ... });
+// Alias: AhpeThread.everyMinute((tick) -> { ... });
 
 // ⭐️ Countdown für 10 Sekunden
 AhpeThread.countdown(10, 
@@ -241,9 +241,9 @@ Aliases zu `JOptionPane`:
 ![](./assets/dialog.png)
 
 ```java
-ApheDialog.info("Hello", "World");
-ApheDialog.warn("Hello", "World");
-ApheDialog.error("Hello", "World");
+AhpeDialog.info("Hello", "World");
+AhpeDialog.warn("Hello", "World");
+AhpeDialog.error("Hello", "World");
 ```
 
 # Swing (*Swag*)

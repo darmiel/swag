@@ -158,7 +158,7 @@ public class AhpeFile {
      * <hr />
      *
      * <pre>
-     *     final Person person = ApheFile.parseSeparated("peter,12,true", ", ", Person.class);
+     *     final Person person = AhpeFile.parseSeparated("peter,12,true", ", ", Person.class);
      * </pre>
      *
      * @param data                separated data as string

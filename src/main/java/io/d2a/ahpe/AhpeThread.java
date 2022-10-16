@@ -14,8 +14,8 @@ public class AhpeThread {
      * <p>
      * Example: Open a dialog after 10s:
      * <pre>
-     *     ApheThread.after(10, TimeUnit.SECONDS, () -> {
-     *        ApheDialog.info("Hello World!");
+     *     AhpeThread.after(10, TimeUnit.SECONDS, () -> {
+     *        AhpeDialog.info("Hello World!");
      *     });
      * </pre>
      *
