@@ -28,7 +28,6 @@ Verschieden Dateioperationen:
 ```java
 final File file = new File("hello.txt"); 
 
-
 // 'Hallo Welt!' in Datei schreiben
 // (falls die Datei nicht existiert, wird sie erstellt)
 AhpeFile.append(file, "Hallo Welt!")
@@ -257,7 +256,7 @@ AhpeDialog.error("Hello", "World");
 Zeigt Radio Buttons mit den Werten von einem Objekt (oder Enums) an.  
 Beim Wechsel wird `onChange` mit dem neuen State aufgerufen.
 
-> **Note**: Die `Radio`-Klasse zeigt als Text die `toString()`-Methode des Objektes an.
+> **Note**: Die `SRadio`-Klasse zeigt als Text die `toString()`-Methode des Objektes an.
 > 
 
 ![](assets/swing-radio.png)
@@ -269,7 +268,7 @@ enum State {
     DND
 }
 // ...
-final JPanel panel = Radio.group(State.OFFLINE, State.ONLINE, State.DND) // oder Radio.group(State.values()) für alle Werte eines Enums
+final JPanel panel = SRadio.group(State.OFFLINE, State.ONLINE, State.DND) // oder Radio.group(State.values()) für alle Werte eines Enums
     .onChange(state -> { // auch als BiConsumer<T, ActionEvent> verfügbar
         System.out.println("Switched State to: " + state);
     })
@@ -301,23 +300,23 @@ this.add(Placeholder.extend("Alter", ageField));
 
 ```java
 // ⭐️ BorderLayout
-this.add(Border.create()
+this.add(SBorder.create()
     .top(new JLabel("Top")) // oder .north()
     .right(new JLabel("Right")) // oder .east()
     .bottom(new JButton("Bottom")) // oder .south()
     .left(new JLabel("Left"))); // oder .west()
 
 // BoxLayout
-this.add(Box.vertical()
+this.add(SBox.vertical()
     .with(new JLabel("Hello")
-    .with(Box.horizontal()
+    .with(SBox.horizontal()
         .with(new JLabel("World"))
         .with(new JButton("Klick!")))));
 
 // FlowLayout
-this.add(Flow.center() // oder Flow.center(new JLabel("Hello"))
+this.add(SFlow.center() // oder Flow.center(new JLabel("Hello"))
     .with(new JLabel("Hello"))
-    .with(Flow.left().with(/* ... */))); // left, right, center
+    .with(SFlow.left().with(/* ... */))); // left, right, center
 ```
 
 ---
@@ -328,7 +327,7 @@ this.add(Flow.center() // oder Flow.center(new JLabel("Hello"))
 
 ```java
 // Grid
-this.add(Grid.builder()
+this.add(SGrid.builder()
     .headers("Name", "Age", "Action")
     .with("Max", 28, new JButton("Fire!"))
     .with("Luca H", 20, new JButton("Fire!!!"))
@@ -341,7 +340,7 @@ Kann auch für Eingabfelder verwendet werden:
 ![](./assets/swing-grid-2.png)
 
 ```java
-this.add(Grid.builder()
+this.add(SGrid.builder()
         .with("Name", new JTextField())
         .with("Alter", new JTextField())
         .with("Adresse", new JTextField())
@@ -357,7 +356,7 @@ Folgende Komponenten stehen im Method-Chaining-Pattern zur Verfügung:
 
 **Button**
 ```java
-this.add(new Button("Title")
+this.add(new SButton("Title")
     .click(() -> {
         // Knopf wurde gedrückt
     })
@@ -372,7 +371,7 @@ this.add(new Button("Title")
 
 **TextField/TextArea**
 ```java
-this.add(new TextField(10)
+this.add(new STextField(10)
     .enter(() -> {
         // Enter wurde gedrückt
     })
@@ -386,24 +385,24 @@ this.add(new TextField(10)
 
 **Komplettes Beispiel**
 ```java
-this.add(Box.vertical()
-    .with(Header.of("Knopf"))
-    .with(Placeholder.extend("Name",new TextField()
+this.add(SBox.vertical()
+    .with(SHeader.of("Knopf"))
+    .with(Placeholder.extend("Name", new STextField()
             .enter(() -> System.out.println("Pressed Enter!")))
         )
-    .with(Box.horizontal()
-        .with(new Button("Klick")
+    .with(SBox.horizontal()
+        .with(new SButton("Klick")
             .click((event) -> System.out.println("Ich wurde geklickt"))
             .focus())
-        .with(new Button("Mich auch")
+        .with(new SButton("Mich auch")
             .click(this::handleClick)
             .disable())
     )
-    .with(Grid.builder()
+    .with(SGrid.builder()
         .headers("Name", "Alter")
         .with("Peter", 12)
-        .with("Max", new Button("Loeschen")
-        .click((event) -> delete("Max"))
+        .with("Max", new SButton("Loeschen")
+            .click((event) -> delete("Max"))
     ))
 );
 ```
